@@ -12,22 +12,24 @@ PART_TIME_HOURS=4
 FULL_TIME_HOURS=8
 isPartOrFull=$((RANDOM%2))
 
-if [ $attendance -eq $PRESENT ]
-then
-    echo "Employee is present!"
-    case $isPartOrFull in
-	1)
-            fullDayHour=$FULL_TIME_HOURS
-	    echo "Full Time Employee!"
-	    ;;
-	0)
-            fullDayHour=$PART_TIME_HOURS
-	    echo "Part Time Employee!"
-	    ;;
-    esac
-else
-    echo "Employee is absent!"
-fi
+case $attendance in 
+    $PRESENT)
+        echo "Employee is present!"
+        case $isPartOrFull in
+       	    1)
+                fullDayHour=$FULL_TIME_HOURS
+	        echo "Full Time Employee!"
+	        ;;
+	    0)
+                fullDayHour=$PART_TIME_HOURS
+	        echo "Part Time Employee!"
+	        ;;
+        esac
+	;;
+    $ABSENT)
+        echo "Employee is absent!"
+	;;
+esac
 
 dailyWage=$((WAGE_PER_HOUR*fullDayHour))
 echo "Daily wage of employee : $dailyWage"
