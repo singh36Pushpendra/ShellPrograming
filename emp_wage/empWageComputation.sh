@@ -1,42 +1,55 @@
-#!/bin/bash 
-echo "Welcome to Employee Wage Computation Program on Master(piku) branch!" 
-attendance=$((RANDOM%2)) 
+#!/bin/bash
+
+echo "Welcome to Employee Wage Computation Program on Master(piku) branch!"
 ABSENT=0
 PRESENT=1
-
-dailyWage=0
 monthlyWage=0
+
 WAGE_PER_HOUR=20
-fullDayHour=0
 
 PART_TIME_HOURS=4
 FULL_TIME_HOURS=8
-isPartOrFull=$((RANDOM%2))
 
 WORKING_DAY_PER_MONTH=20
-case $attendance in 
+
+day=0
+monthHours=0
+
+while [ $monthHours -le 100 ] || [ $day -le $WORKING_DAY_PER_MONTH ]
+do
+    ((day++))
+    attendance=$((RANDOM % 2))
+
+    dailyWage=0
+    fullDayHour=0
+
+    isPartOrFull=$((RANDOM % 2))
+
+    WORKING_DAY_PER_MONTH=20
+    case $attendance in
     $PRESENT)
         echo "Employee is present!"
         case $isPartOrFull in
-       	    1)
-                fullDayHour=$FULL_TIME_HOURS
-	        echo "Full Time Employee!"
-	        ;;
-	    0)
-                fullDayHour=$PART_TIME_HOURS
-	        echo "Part Time Employee!"
-	        ;;
+        1)
+            fullDayHour=$FULL_TIME_HOURS
+            echo "Full Time Employee!"
+            ;;
+        0)
+            fullDayHour=$PART_TIME_HOURS
+            echo "Part Time Employee!"
+            ;;
         esac
-	;;
+        ;;
     $ABSENT)
         echo "Employee is absent!"
-	;;
-esac
+        ;;
+    esac
+    monthHours=$((monthHours+fullDayHour))
+    dailyWage=$((WAGE_PER_HOUR * fullDayHour))
+    echo "Daily wage of employee : $dailyWage"
 
-dailyWage=$((WAGE_PER_HOUR*fullDayHour))
-echo "Daily wage of employee : $dailyWage"
+done
 
-monthlyWage=$((WORKING_DAY_PER_MONTH*WAGE_PER_HOUR*fullDayHour))
-echo "Daily wage of employee : $monthlyWage"
-
-
+monthlyWage=$((monthHours * WAGE_PER_HOUR))
+echo "Total monthly wage of employee : $monthlyWage"
+echo "Program runs $day times!"
