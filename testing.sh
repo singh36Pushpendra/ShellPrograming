@@ -1,14 +1,13 @@
 for branch in `git branch --list *UC`
 do
     git checkout $branch
-    if [ ! -d emp_wage ]
+    if [ -f README.md ]
     then
-	echo emp_wage is not exist in branch $branch
-	mkdir emp_wage
-	mv empWageComputation.sh emp_wage/
+	mv README.md emp_wage/
 	git add .
-	git commit -m "renaming in $branch"
+	git commit -m "moving README.md in $branch"
 	git push -u origin $branch
 	git status
     fi
 done
+git switch piku
