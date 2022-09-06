@@ -15,17 +15,13 @@ WORKING_DAY_PER_MONTH=20
 day=0
 monthHours=0
 
-while [ $monthHours -le 100 ] || [ $day -le $WORKING_DAY_PER_MONTH ]
-do
-    ((day++))
+function getWorkHours() {
     attendance=$((RANDOM % 2))
 
-    dailyWage=0
     fullDayHour=0
 
     isPartOrFull=$((RANDOM % 2))
 
-    WORKING_DAY_PER_MONTH=20
     case $attendance in
     $PRESENT)
         echo "Employee is present!"
@@ -44,6 +40,12 @@ do
         echo "Employee is absent!"
         ;;
     esac
+}
+while [ $monthHours -le 100 ] || [ $day -le $WORKING_DAY_PER_MONTH ]
+do
+    ((day++))
+    dailyWage=0
+    getWorkHours
     monthHours=$((monthHours+fullDayHour))
     dailyWage=$((WAGE_PER_HOUR * fullDayHour))
     echo "Daily wage of employee : $dailyWage"
