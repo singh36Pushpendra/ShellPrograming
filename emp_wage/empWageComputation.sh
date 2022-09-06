@@ -12,7 +12,7 @@ FULL_TIME_HOURS=8
 
 WORKING_DAY_PER_MONTH=20
 
-day=0
+day=1
 monthHours=0
 
 function getWorkHours() {
@@ -41,17 +41,22 @@ function getWorkHours() {
         ;;
     esac
 }
+count=0
 while [ $monthHours -le 100 ] || [ $day -le $WORKING_DAY_PER_MONTH ]
 do
-    ((day++))
+    
     dailyWage=0
     getWorkHours
     monthHours=$((monthHours+fullDayHour))
     dailyWage=$((WAGE_PER_HOUR * fullDayHour))
+    storeDailyWages[((count++))]=$dailyWage
+
     echo "Daily wage of employee : $dailyWage"
+    ((day++))
 
 done
 
 monthlyWage=$((monthHours * WAGE_PER_HOUR))
+echo "Daily wages : " ${storeDailyWages[@]}
 echo "Total monthly wage of employee : $monthlyWage"
 echo "Program runs $day times!"
