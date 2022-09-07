@@ -5,3 +5,4 @@ read -p "Enter second number : " b
 read -p "Enter third number : " c
 echo $((a+b*c))
 echo $((a*b+c))
+echo $((c+a/b))
