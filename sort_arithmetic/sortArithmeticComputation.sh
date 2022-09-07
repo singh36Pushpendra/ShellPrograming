@@ -9,3 +9,9 @@ dictArithmetics[2]=$((a*b+c))
 dictArithmetics[3]=$((c+a/b))
 dictArithmetics[4]=$((a%b+c))
 echo ${dictArithmetics[@]}
+count=0
+for arithmetic in ${dictArithmetics[@]}
+do
+    arithmetics[count++]=$arithmetic
+done
+echo ${arithmetics[@]}
