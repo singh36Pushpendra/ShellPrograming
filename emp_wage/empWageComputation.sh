@@ -42,7 +42,8 @@ function getWorkHours() {
     esac
 }
 count=0
-while [ $monthHours -le 100 ] || [ $day -le $WORKING_DAY_PER_MONTH ]
+declare -A dayAndDailyWages
+while [ $monthHours -le 100 ] && [ $day -le $WORKING_DAY_PER_MONTH ]
 do
     
     dailyWage=0
@@ -51,6 +52,7 @@ do
     dailyWage=$((WAGE_PER_HOUR * fullDayHour))
     storeDailyWages[((count++))]=$dailyWage
 
+    dayAndDailyWages[$day]=$dailyWage
     echo "Daily wage of employee : $dailyWage"
     ((day++))
 
@@ -58,5 +60,6 @@ done
 
 monthlyWage=$((monthHours * WAGE_PER_HOUR))
 echo "Daily wages : " ${storeDailyWages[@]}
+echo "Daily wages in dictionary : " ${dayAndDailyWages[@]}
 echo "Total monthly wage of employee : $monthlyWage"
 echo "Program runs $day times!"
